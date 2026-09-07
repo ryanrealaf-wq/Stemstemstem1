@@ -408,34 +408,63 @@ export const ExportPanel: React.FC<ExportPanelProps> = ({
         </div>
 
         {/* Packaged Android Application & Native API */}
-        <div className="p-3.5 rounded-lg bg-gradient-to-r from-[#0E1526] to-[#0A0D14] border border-cyan-800/40 space-y-2 mb-4">
-          <div className="flex items-center justify-between">
+        <div className="p-3.5 rounded-lg bg-gradient-to-r from-[#0E1526] to-[#0A0D14] border border-cyan-800/40 space-y-3 mb-4">
+          <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
                 <Smartphone className="w-4 h-4" />
               </div>
               <div>
-                <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                  Packaged Android APK & Native API
+                <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2 flex-wrap">
+                  Packaged Android API & Application
                   <span className="text-[9px] px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
-                    4.3 MB Built APK
+                    APK & AAR Ready
                   </span>
                 </h4>
                 <p className="text-[10px] text-slate-400 font-mono">
-                  Package: com.stemflow.ai • Native DSP & MIDI Exporter • API 24–35
+                  com.stemflow.ai:stemflow-api:1.0.0 • Min API 24 (Android 7.0+) • Target API 35
                 </p>
               </div>
             </div>
+          </div>
 
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
             <a
               href="/api/download-apk"
               download="StemFlow-AI-debug.apk"
-              className="px-3.5 py-2 rounded bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-mono font-bold tracking-wider hover:brightness-110 transition flex items-center gap-1.5 uppercase border border-cyan-400/40 shrink-0"
-              title="Download compiled Android package (APK)"
+              className="px-3 py-2 rounded bg-cyan-600 hover:bg-cyan-500 text-white text-[11px] font-mono font-bold tracking-wider hover:brightness-110 transition flex items-center justify-center gap-1.5 uppercase border border-cyan-400/40"
+              title="Download compiled Android application (APK)"
             >
               <Download className="w-3.5 h-3.5" />
-              Download APK
+              Download APK (4.2 MB)
             </a>
+
+            <a
+              href="/api/download-aar"
+              download="stemflow-api-1.0.0.aar"
+              className="px-3 py-2 rounded bg-[#162035] hover:bg-[#1E2C48] text-cyan-300 text-[11px] font-mono font-bold tracking-wider hover:brightness-110 transition flex items-center justify-center gap-1.5 uppercase border border-cyan-700/50"
+              title="Download Android Archive Library (.AAR)"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Download AAR (47 KB)
+            </a>
+
+            <a
+              href="/api/download-sdk-bundle"
+              download="stemflow-android-sdk.zip"
+              className="px-3 py-2 rounded bg-[#162035] hover:bg-[#1E2C48] text-amber-300 text-[11px] font-mono font-bold tracking-wider hover:brightness-110 transition flex items-center justify-center gap-1.5 uppercase border border-amber-700/50"
+              title="Download full Android SDK package bundle (.ZIP with docs and gradle snippet)"
+            >
+              <Download className="w-3.5 h-3.5" />
+              SDK Bundle (.ZIP)
+            </a>
+          </div>
+
+          <div className="p-2 rounded bg-black/40 border border-slate-800 text-[10px] font-mono text-slate-400 flex items-center justify-between">
+            <span className="truncate">
+              Gradle: <code className="text-cyan-300">implementation files('libs/stemflow-api-1.0.0.aar')</code>
+            </span>
+            <span className="text-[9px] text-slate-500 ml-2 shrink-0">Android Java / Kotlin API</span>
           </div>
         </div>
 

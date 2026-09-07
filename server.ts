@@ -96,27 +96,79 @@ async function startServer() {
     });
   });
 
+  // API Route: Android AAR Library Download Endpoint
+  app.get(['/api/download-aar', '/stemflow-api.aar', '/download/stemflow-api-release.aar'], (req, res) => {
+    const aarPath = path.join(process.cwd(), 'public', 'aar', 'stemflow-api-release.aar');
+    res.setHeader('Content-Type', 'application/java-archive');
+    res.setHeader('Content-Disposition', 'attachment; filename="stemflow-api-1.0.0.aar"');
+    res.sendFile(aarPath, (err) => {
+      if (err) {
+        console.error('Error sending AAR file:', err);
+        if (!res.headersSent) {
+          res.status(404).json({ error: 'Android AAR library package not found on server.' });
+        }
+      }
+    });
+  });
+
+  // API Route: Android SDK Developer Bundle (ZIP with AAR, Gradle snippet, and docs)
+  app.get(['/api/download-sdk-bundle', '/download/stemflow-android-sdk.zip'], (req, res) => {
+    const zipPath = path.join(process.cwd(), 'public', 'stemflow-android-sdk.zip');
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', 'attachment; filename="stemflow-android-sdk.zip"');
+    res.sendFile(zipPath, (err) => {
+      if (err) {
+        console.error('Error sending SDK bundle:', err);
+        if (!res.headersSent) {
+          res.status(404).json({ error: 'Android SDK bundle package not found on server.' });
+        }
+      }
+    });
+  });
+
   // API Route: Android Native Package & SDK Status
   app.get('/api/android-status', (req, res) => {
     const apkPath = path.join(process.cwd(), 'public', 'app-debug.apk');
-    const exists = fs.existsSync(apkPath);
-    let stats = null;
-    if (exists) {
-      stats = fs.statSync(apkPath);
-    }
+    const aarPath = path.join(process.cwd(), 'public', 'aar', 'stemflow-api-release.aar');
+    const bundlePath = path.join(process.cwd(), 'public', 'stemflow-android-sdk.zip');
+
+    const apkExists = fs.existsSync(apkPath);
+    const aarExists = fs.existsSync(aarPath);
+    const bundleExists = fs.existsSync(bundlePath);
+
+    const apkStats = apkExists ? fs.statSync(apkPath) : null;
+    const aarStats = aarExists ? fs.statSync(aarPath) : null;
+    const bundleStats = bundleExists ? fs.statSync(bundlePath) : null;
+
     res.json({
       status: 'ready',
-      packaged: exists,
-      apkFileName: 'StemFlow-AI-debug.apk',
-      downloadUrl: '/api/download-apk',
-      packageSize: stats ? stats.size : 0,
-      packageSizeMb: stats ? (stats.size / (1024 * 1024)).toFixed(2) + ' MB' : '0 MB',
+      packaged: apkExists && aarExists,
+      apk: {
+        fileName: 'StemFlow-AI-debug.apk',
+        downloadUrl: '/api/download-apk',
+        sizeBytes: apkStats ? apkStats.size : 0,
+        sizeFormatted: apkStats ? (apkStats.size / (1024 * 1024)).toFixed(2) + ' MB' : '0 MB',
+        sha256: 'b850c94fe27df71c9fe4351e7e52a82b494c74124409012f5822955ff2b890b4',
+      },
+      aarLibrary: {
+        fileName: 'stemflow-api-1.0.0.aar',
+        downloadUrl: '/api/download-aar',
+        sizeBytes: aarStats ? aarStats.size : 0,
+        sizeFormatted: aarStats ? (aarStats.size / 1024).toFixed(1) + ' KB' : '0 KB',
+        sha256: 'dc1623e8158ae5f240d6a17571a9a8c48617b6fd9553c88c9040ca0a04783e81',
+      },
+      sdkBundle: {
+        fileName: 'stemflow-android-sdk.zip',
+        downloadUrl: '/api/download-sdk-bundle',
+        sizeBytes: bundleStats ? bundleStats.size : 0,
+        sizeFormatted: bundleStats ? (bundleStats.size / 1024).toFixed(1) + ' KB' : '0 KB',
+        sha256: 'b83486a8b734d4592db636161b99d9451e602c803139c67a5184eaa1cc95677c',
+      },
       packageName: 'com.stemflow.ai',
       nativeModule: 'com.stemflow.ai.StemFlowPlugin',
       androidSdkModule: 'com.stemflow.ai:stemflow-api:1.0.0',
       minSdkVersion: 24,
       targetSdkVersion: 35,
-      sha256: 'b850c94fe27df71c9fe4351e7e52a82b494c74124409012f5822955ff2b890b4',
       timestamp: new Date().toISOString(),
     });
   });
