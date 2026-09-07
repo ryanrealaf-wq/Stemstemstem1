@@ -82,7 +82,7 @@ async function startServer() {
   });
 
   // API Route: Android APK Download Endpoint
-  app.get(['/api/download-apk', '/app-debug.apk', '/download/StemFlow-AI.apk'], (req, res) => {
+  app.get(['/api/download-apk', '/app-debug.apk', '/download/StemFlow-AI.apk', '/apk/StemFlow-AI-debug.apk', '/StemFlow-AI-debug.apk'], (req, res) => {
     const apkPath = path.join(process.cwd(), 'public', 'app-debug.apk');
     res.setHeader('Content-Type', 'application/vnd.android.package-archive');
     res.setHeader('Content-Disposition', 'attachment; filename="StemFlow-AI-debug.apk"');

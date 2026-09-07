@@ -70,6 +70,7 @@ import { GeminiInsightsPanel } from './components/GeminiInsightsPanel';
 import { FeatureAnalyticsPanel } from './components/FeatureAnalyticsPanel';
 import { ExportPanel } from './components/ExportPanel';
 import { AccuracyMetricsPanel } from './components/AccuracyMetricsPanel';
+import { AndroidPackageModal } from './components/AndroidPackageModal';
 
 export default function App() {
   const [pipelineResult, setPipelineResult] = useState<SongPipelineResult | null>(null);
@@ -129,6 +130,7 @@ export default function App() {
 
   // Modals
   const [isExportOpen, setIsExportOpen] = useState(false);
+  const [isAndroidModalOpen, setIsAndroidModalOpen] = useState(false);
 
   // Setup AudioEngine listeners
   useEffect(() => {
@@ -808,6 +810,7 @@ export default function App() {
         onTogglePlaySynthMidi={() => setPlaySynthMidi(!playSynthMidi)}
         onOpenExport={() => setIsExportOpen(true)}
         onSelectTrackModal={handleScrollToInput}
+        onOpenAndroidPackage={() => setIsAndroidModalOpen(true)}
       />
 
       {/* Main Studio Workspace */}
@@ -1195,6 +1198,11 @@ export default function App() {
           stemBuffers={stemBuffersState}
           onClose={() => setIsExportOpen(false)}
         />
+      )}
+
+      {/* Complete Android APK & Native SDK Package Modal */}
+      {isAndroidModalOpen && (
+        <AndroidPackageModal onClose={() => setIsAndroidModalOpen(false)} />
       )}
     </div>
   );
