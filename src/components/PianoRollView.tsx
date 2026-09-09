@@ -413,34 +413,32 @@ export const PianoRollView: React.FC<PianoRollViewProps> = ({
 
       {/* Note Inspector & Actions Footer Panel */}
       <div className="mt-2.5 p-2.5 rounded bg-[#0A0B0E] border border-[#2D3139] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs font-mono">
-        {selectedNote || hoveredNote ? {
-          ...(selectedNote || hoveredNote) && (
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="font-bold text-white flex items-center gap-1.5 uppercase">
-                <span className="w-2 h-2 rounded-full bg-indigo-400" />
-                {(selectedNote || hoveredNote)!.stem}: <strong className="text-amber-400 font-bold">{(selectedNote || hoveredNote)!.noteName}</strong> (MIDI {(selectedNote || hoveredNote)!.pitch})
+        {selectedNote || hoveredNote ? (
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="font-bold text-white flex items-center gap-1.5 uppercase">
+              <span className="w-2 h-2 rounded-full bg-indigo-400" />
+              {(selectedNote || hoveredNote)!.stem}: <strong className="text-amber-400 font-bold">{(selectedNote || hoveredNote)!.noteName}</strong> (MIDI {(selectedNote || hoveredNote)!.pitch})
+            </span>
+            <span className="text-slate-500">
+              TIME: <span className="text-slate-300">{(selectedNote || hoveredNote)!.startTime.toFixed(2)}s - {(selectedNote || hoveredNote)!.endTime.toFixed(2)}s</span>
+            </span>
+            <span className="text-slate-500">
+              VELOCITY: <strong className="text-emerald-400">{(selectedNote || hoveredNote)!.dynamicVelocity || (selectedNote || hoveredNote)!.velocity}</strong>
+            </span>
+            {(selectedNote || hoveredNote)!.pitchBends && (selectedNote || hoveredNote)!.pitchBends!.length > 0 && (
+              <span className="text-amber-300 font-bold flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                {(selectedNote || hoveredNote)!.pitchBends!.length} Continuous Pitch Bends
               </span>
-              <span className="text-slate-500">
-                TIME: <span className="text-slate-300">{(selectedNote || hoveredNote)!.startTime.toFixed(2)}s - {(selectedNote || hoveredNote)!.endTime.toFixed(2)}s</span>
-              </span>
-              <span className="text-slate-500">
-                VELOCITY: <strong className="text-emerald-400">{(selectedNote || hoveredNote)!.dynamicVelocity || (selectedNote || hoveredNote)!.velocity}</strong>
-              </span>
-              {(selectedNote || hoveredNote)!.pitchBends && (selectedNote || hoveredNote)!.pitchBends!.length > 0 && (
-                <span className="text-amber-300 font-bold flex items-center gap-1">
-                  <Sparkles className="w-3 h-3" />
-                  {(selectedNote || hoveredNote)!.pitchBends!.length} Continuous Pitch Bends
-                </span>
-              )}
-              <span className="text-slate-500">
-                ENGINE: <strong className="text-indigo-400">{(selectedNote || hoveredNote)!.method}</strong>
-              </span>
-              <span className="text-slate-500">
-                ROLE: <strong className="text-white uppercase">{(selectedNote || hoveredNote)!.role}</strong>
-              </span>
-            </div>
-          )
-        } : (
+            )}
+            <span className="text-slate-500">
+              ENGINE: <strong className="text-indigo-400">{(selectedNote || hoveredNote)!.method}</strong>
+            </span>
+            <span className="text-slate-500">
+              ROLE: <strong className="text-white uppercase">{(selectedNote || hoveredNote)!.role}</strong>
+            </span>
+          </div>
+        ) : (
           <div className="text-slate-500 flex items-center gap-2 text-[11px]">
             <FileMusic className="w-3.5 h-3.5 text-slate-600" />
             <span>Hover or click any MIDI note to audition pitch and inspect continuous pitch bends, dynamic velocities, and overtone harmonics.</span>

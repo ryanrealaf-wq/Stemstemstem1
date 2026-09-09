@@ -62,21 +62,24 @@ export const Header: React.FC<HeaderProps> = ({
   const metadata = pipelineResult?.metadata;
 
   return (
-    <header className="sticky top-0 z-40 bg-[#15171C]/95 backdrop-blur-md border-b border-[#2D3139] px-4 py-2.5 sm:px-6 shadow-xl">
+    <header className="sticky top-0 z-40 bg-[#101217]/95 backdrop-blur-md border-b border-[#292D38] px-4 py-2.5 sm:px-6 shadow-xl">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
         {/* Brand & Project Info */}
         <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-indigo-600 rounded flex items-center justify-center font-bold text-white text-lg shadow-md shadow-indigo-600/30">
-              A
+            <div className="relative w-9 h-9 bg-black border-2 border-[#DC2626] rounded flex items-center justify-center shadow-crimson-glow">
+              <svg className="w-5 h-5 text-[#DC2626]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M2 10h3l2-6 4 16 4-12 2 6h5" />
+                <path d="M12 18v3" stroke="#DC2626" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-white font-semibold text-base leading-tight uppercase tracking-wider">
-                  StemFlow AI
+                <h1 className="text-white font-mono font-black text-base leading-tight uppercase tracking-wider">
+                  StemFlow <span className="text-[#DC2626]">AI</span>
                 </h1>
-                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-indigo-900/40 border border-indigo-700/50 text-indigo-300 uppercase">
-                  v4.2
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-red-950/60 border border-[#DC2626]/50 text-red-300 uppercase">
+                  BWB 001
                 </span>
                 {isAndroid && (
                   <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/50 text-emerald-400 flex items-center gap-1 uppercase">
@@ -85,8 +88,8 @@ export const Header: React.FC<HeaderProps> = ({
                   </span>
                 )}
               </div>
-              <p className="text-slate-500 text-[10px] font-mono uppercase tracking-widest flex items-center gap-1.5 mt-0.5">
-                <span>Advanced Stem Decomposition & MIDI</span>
+              <p className="text-zinc-400 text-[10px] font-mono uppercase tracking-widest flex items-center gap-1.5 mt-0.5">
+                <span>Audio DSP & Neural Separation</span>
               </p>
             </div>
           </div>
@@ -95,15 +98,15 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-1.5 md:hidden">
             <button
               onClick={onOpenAndroidPackage}
-              className="px-2 py-1 rounded bg-cyan-950/80 text-[10px] font-mono text-cyan-300 border border-cyan-700/60 hover:bg-cyan-900 transition uppercase tracking-wider flex items-center gap-1"
+              className="px-2.5 py-1 rounded bg-[#DC2626] hover:bg-red-700 text-[10px] font-mono font-bold text-white shadow-crimson-glow transition uppercase tracking-wider flex items-center gap-1"
               title="Download Android APK"
             >
-              <Smartphone className="w-3 h-3 text-cyan-400" />
-              APK
+              <Smartphone className="w-3 h-3 text-white" />
+              APK 4.4M
             </button>
             <button
               onClick={onSelectTrackModal}
-              className="px-2.5 py-1 rounded bg-[#1A1D24] text-[10px] font-mono text-slate-300 border border-[#2D3139] hover:bg-slate-800 transition uppercase tracking-wider"
+              className="px-2.5 py-1 rounded bg-[#1A1D26] text-[10px] font-mono text-zinc-300 border border-[#292D38] hover:bg-zinc-800 transition uppercase tracking-wider"
             >
               Upload
             </button>
@@ -114,32 +117,32 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-3 sm:gap-5">
           {metadata && (
             <div className="hidden lg:flex flex-col items-end">
-              <span className="text-[9px] text-slate-500 uppercase tracking-wider font-mono">Loaded Audio</span>
-              <span className="text-xs text-indigo-400 font-mono italic truncate max-w-[180px]">
+              <span className="text-[9px] text-zinc-500 uppercase tracking-wider font-mono">Loaded Audio</span>
+              <span className="text-xs text-cyan-400 font-mono italic truncate max-w-[180px]">
                 {metadata.title}.wav
               </span>
             </div>
           )}
 
-          {metadata && <div className="hidden lg:block h-6 w-px bg-[#2D3139]" />}
+          {metadata && <div className="hidden lg:block h-6 w-px bg-[#292D38]" />}
 
           {/* Tempo Badge */}
           {metadata && (
             <div className="hidden sm:flex flex-col items-center px-1">
-              <span className="text-[9px] text-slate-500 uppercase tracking-wider font-mono">Tempo</span>
+              <span className="text-[9px] text-zinc-500 uppercase tracking-wider font-mono">Tempo</span>
               <span className="text-sm font-bold text-white tabular-nums font-mono">
-                {metadata.bpm.toFixed(1)} <span className="text-[9px] text-slate-500 uppercase">BPM</span>
+                {metadata.bpm.toFixed(1)} <span className="text-[9px] text-zinc-500 uppercase">BPM</span>
               </span>
             </div>
           )}
 
-          {metadata && <div className="hidden sm:block h-6 w-px bg-[#2D3139]" />}
+          {metadata && <div className="hidden sm:block h-6 w-px bg-[#292D38]" />}
 
           {/* Transport Controls */}
-          <div className="flex items-center gap-2 bg-[#0A0B0E] px-3 py-1 rounded border border-[#2D3139]">
+          <div className="flex items-center gap-2 bg-[#07080A] px-3 py-1 rounded border border-[#292D38]">
             <button
               onClick={onStop}
-              className="p-1.5 rounded text-slate-400 hover:text-white hover:bg-[#1A1D24] transition"
+              className="p-1.5 rounded text-zinc-400 hover:text-white hover:bg-[#1A1D26] transition"
               title="Stop & Reset to 0:00"
             >
               <Square className="w-3.5 h-3.5" />
@@ -150,8 +153,8 @@ export const Header: React.FC<HeaderProps> = ({
               disabled={!pipelineResult}
               className={`w-7 h-7 rounded flex items-center justify-center transition font-bold ${
                 isPlaying
-                  ? 'bg-amber-500 text-slate-950 hover:bg-amber-400 shadow-sm'
-                  : 'bg-indigo-600 text-white hover:bg-indigo-500 shadow-sm'
+                  ? 'bg-[#10B981] text-black hover:bg-emerald-400 shadow-sm'
+                  : 'bg-[#DC2626] text-white hover:bg-red-600 shadow-crimson-glow'
               } disabled:opacity-40 disabled:cursor-not-allowed`}
               title={isPlaying ? 'Pause' : 'Play'}
             >
@@ -159,27 +162,27 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             <div className="px-2 text-center min-w-[70px]">
-              <span className="font-mono text-xs font-bold text-white tabular-nums block">
+              <span className="font-mono text-xs font-bold text-[#DC2626] tabular-nums block">
                 {formatTime(currentTime)}
               </span>
-              <span className="text-[9px] text-slate-500 block font-mono">
+              <span className="text-[9px] text-zinc-500 block font-mono">
                 / {formatTime(duration)}
               </span>
             </div>
 
-            <div className="h-4 w-px bg-[#2D3139]" />
+            <div className="h-4 w-px bg-[#292D38]" />
 
             {/* Synthesizer vs Audio Stems Toggle */}
             <button
               onClick={onTogglePlaySynthMidi}
               className={`flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider transition ${
                 playSynthMidi
-                  ? 'bg-purple-900/30 text-purple-300 border border-purple-700/50'
-                  : 'bg-[#1A1D24] text-slate-400 hover:text-slate-200 border border-[#2D3139]'
+                  ? 'bg-cyan-950/40 text-[#06B6D4] border border-[#06B6D4]/50'
+                  : 'bg-[#1A1D26] text-zinc-400 hover:text-zinc-200 border border-[#292D38]'
               }`}
               title="Toggle MIDI Synthesizer vs Separated Stem Audio"
             >
-              <Music2 className="w-3 h-3" />
+              <Music2 className="w-3 h-3 text-[#06B6D4]" />
               <span className="hidden sm:inline">{playSynthMidi ? 'Synth On' : 'Stems Only'}</span>
             </button>
           </div>
@@ -189,31 +192,31 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="hidden md:flex items-center gap-2">
           <button
             onClick={onOpenAndroidPackage}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-gradient-to-r from-cyan-950/90 to-[#0F1D2F] text-xs font-mono uppercase tracking-wider text-cyan-300 border border-cyan-700/60 hover:border-cyan-500 hover:text-white transition shadow-sm"
-            title="Download complete Android APK (4.23 MB) & Native API"
+            className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#DC2626] hover:bg-red-700 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-crimson-glow transition"
+            title="Download complete Android APK (4.42 MB) & Native API"
           >
-            <Smartphone className="w-3.5 h-3.5 text-cyan-400" />
+            <Smartphone className="w-3.5 h-3.5" />
             <span>Android APK</span>
-            <span className="text-[9px] px-1 py-0.2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-              4.2M
+            <span className="text-[9px] px-1.5 py-0.2 rounded bg-black/40 text-red-200 border border-white/20">
+              4.4M
             </span>
           </button>
 
           <button
             onClick={onSelectTrackModal}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#1A1D24] text-xs font-mono uppercase tracking-wider text-slate-300 border border-[#2D3139] hover:bg-[#2D3139] hover:text-white transition"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#1A1D26] text-xs font-mono uppercase tracking-wider text-zinc-300 border border-[#292D38] hover:bg-zinc-800 hover:text-white transition"
           >
-            <Cpu className="w-3.5 h-3.5 text-indigo-400" />
+            <Cpu className="w-3.5 h-3.5 text-[#06B6D4]" />
             <span>Ingest Audio</span>
           </button>
 
           <button
             onClick={onOpenExport}
             disabled={!pipelineResult}
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded bg-indigo-600 hover:bg-indigo-500 text-xs font-mono uppercase tracking-wider font-semibold text-white shadow-md shadow-indigo-600/20 hover:brightness-110 transition disabled:opacity-40 disabled:cursor-not-allowed"
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded bg-gradient-to-r from-[#DC2626] to-red-900 hover:from-red-600 hover:to-red-950 text-xs font-mono uppercase tracking-wider font-bold text-white border border-red-500/40 shadow-crimson-glow transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <Download className="w-3.5 h-3.5" />
-            <span>Export MIDI Bundle</span>
+            <span>Export Bundle</span>
           </button>
         </div>
       </div>

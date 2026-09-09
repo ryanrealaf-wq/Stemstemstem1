@@ -669,44 +669,8 @@ export default function App() {
       // Unblock processing immediately so all panels and audio playback are available
       setIsProcessing(false);
 
-      // Package lossless stems and MIDI into ZIP archive in safe non-blocking background task
-      (async () => {
-        try {
-          const cleanSlug = (customMetadata.title || 'song').toLowerCase().replace(/[^a-z0-9]+/g, '_');
-          const { filename } = await downloadStemmedAudioZip(
-            stemBuffers,
-            customMetadata.title,
-            [
-              {
-                filename: `${cleanSlug}_aligned_multitrack.mid`,
-                data: generateMidiFile(cleanedNotes, estimatedBpm),
-              },
-              {
-                filename: `${cleanSlug}_analysis_summary.json`,
-                data: JSON.stringify(
-                  {
-                    metadata: customMetadata,
-                    bpm: estimatedBpm,
-                    key: keyProfile.keyName,
-                    scaleType: keyProfile.scaleType,
-                    accuracy: {
-                      ...accuracyProfile,
-                      collisionPurgedCount: collisionLogs.length,
-                    },
-                    collisionResolutionLogs: collisionLogs.map((l) => l.formattedLog),
-                    stemSummaries,
-                  },
-                  null,
-                  2
-                ),
-              },
-            ]
-          );
-          setAutoDownloadNotice(`✓ Lossless stems & MIDI package automatically downloaded: "${filename}"`);
-        } catch (zipError) {
-          console.warn('Background stem zip generation notice:', zipError);
-        }
-      })();
+      // Set ready notice for user-initiated download without triggering unprompted iframe sandbox violations
+      setAutoDownloadNotice(`✓ 6 separated lossless stems & expressive multi-track MIDI transcription ready`);
     } catch (err) {
       console.error('Error processing custom audio:', err);
     } finally {

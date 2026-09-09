@@ -81,11 +81,33 @@ async function startServer() {
     });
   });
 
-  // API Route: Android APK Download Endpoint
+  // Helper to locate compiled APK across possible output paths
+  const getApkFilePath = () => {
+    const candidates = [
+      path.join(process.cwd(), 'public', 'app-debug.apk'),
+      path.join(process.cwd(), 'public', 'apk', 'StemFlow-AI-debug.apk'),
+      path.join(process.cwd(), 'android', 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk'),
+      path.join(process.cwd(), 'StemFlow-AI-debug.apk'),
+      path.join(process.cwd(), 'dist', 'app-debug.apk'),
+    ];
+    for (const p of candidates) {
+      if (fs.existsSync(p)) return p;
+    }
+    return null;
+  };
+
+  // API Route: Android APK Download Endpoint (Direct Binary Stream)
   app.get(['/api/download-apk', '/app-debug.apk', '/download/StemFlow-AI.apk', '/apk/StemFlow-AI-debug.apk', '/StemFlow-AI-debug.apk'], (req, res) => {
-    const apkPath = path.join(process.cwd(), 'public', 'app-debug.apk');
+    const apkPath = getApkFilePath();
+    if (!apkPath || !fs.existsSync(apkPath)) {
+      return res.status(404).json({ error: 'Android APK package not found on server.' });
+    }
+    const stat = fs.statSync(apkPath);
     res.setHeader('Content-Type', 'application/vnd.android.package-archive');
     res.setHeader('Content-Disposition', 'attachment; filename="StemFlow-AI-debug.apk"');
+    res.setHeader('Content-Length', stat.size.toString());
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.sendFile(apkPath, (err) => {
       if (err) {
         console.error('Error sending APK file:', err);
@@ -94,6 +116,27 @@ async function startServer() {
         }
       }
     });
+  });
+
+  // API Route: Android APK Base64 Endpoint (Immune to Mobile DownloadManager cookie stripping)
+  app.get('/api/download-apk-base64', (req, res) => {
+    const apkPath = getApkFilePath();
+    if (!apkPath || !fs.existsSync(apkPath)) {
+      return res.status(404).json({ error: 'Android APK package not found on server.' });
+    }
+    try {
+      const fileBuffer = fs.readFileSync(apkPath);
+      const stat = fs.statSync(apkPath);
+      res.json({
+        success: true,
+        filename: 'StemFlow-AI-debug.apk',
+        mimeType: 'application/vnd.android.package-archive',
+        sizeBytes: stat.size,
+        base64: fileBuffer.toString('base64'),
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || 'Failed to read APK file' });
+    }
   });
 
   // API Route: Android AAR Library Download Endpoint
@@ -148,7 +191,7 @@ async function startServer() {
         downloadUrl: '/api/download-apk',
         sizeBytes: apkStats ? apkStats.size : 0,
         sizeFormatted: apkStats ? (apkStats.size / (1024 * 1024)).toFixed(2) + ' MB' : '0 MB',
-        sha256: 'b850c94fe27df71c9fe4351e7e52a82b494c74124409012f5822955ff2b890b4',
+        sha256: 'b803bf706952203adbbb63d86f5925c23b2be5d7753fe86daf7d9aa1f59537d8',
       },
       aarLibrary: {
         fileName: 'stemflow-api-1.0.0.aar',

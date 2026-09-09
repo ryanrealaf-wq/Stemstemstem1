@@ -242,27 +242,27 @@ export const AudioInputPanel: React.FC<AudioInputPanelProps> = ({
   };
 
   return (
-    <div className="bg-[#15171C] rounded-lg border border-[#2D3139] p-4 shadow-xl select-none">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 pb-2.5 border-b border-[#2D3139]">
+    <div className="bg-[#101217] rounded-lg border border-[#292D38] p-4 shadow-xl select-none">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 pb-2.5 border-b border-[#292D38]">
         <div>
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-300 flex items-center gap-2">
-            <Radio className="w-3.5 h-3.5 text-indigo-400" />
+          <h2 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-white flex items-center gap-2">
+            <Radio className="w-3.5 h-3.5 text-[#DC2626]" />
             Audio Ingestion & Signal Capture
           </h2>
-          <p className="text-[11px] text-slate-500 font-mono mt-0.5">
+          <p className="text-[11px] text-zinc-400 font-mono mt-0.5">
             Upload audio master stems or capture direct live instrument signal for DSP transcription
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-[10px] uppercase font-mono text-slate-400 bg-[#0A0B0E] px-2.5 py-1 rounded border border-[#2D3139]">
-          <Cpu className="w-3 h-3 text-indigo-400" />
+        <div className="flex items-center gap-2 text-[10px] uppercase font-mono text-zinc-400 bg-[#07080A] px-2.5 py-1 rounded border border-[#292D38]">
+          <Cpu className="w-3 h-3 text-[#06B6D4]" />
           <span>Real Web Audio DSP + Gemini 3.7</span>
         </div>
       </div>
 
       {uploadError && (
-        <div className="mb-3 p-2.5 rounded bg-rose-950/40 border border-rose-800/60 text-rose-300 text-xs flex items-center gap-2 font-mono">
-          <AlertCircle className="w-3.5 h-3.5 shrink-0 text-rose-400" />
+        <div className="mb-3 p-2.5 rounded bg-red-950/40 border border-red-800/60 text-red-300 text-xs flex items-center gap-2 font-mono">
+          <AlertCircle className="w-3.5 h-3.5 shrink-0 text-red-400" />
           <span>{uploadError}</span>
         </div>
       )}
@@ -279,8 +279,8 @@ export const AudioInputPanel: React.FC<AudioInputPanelProps> = ({
             onClick={() => fileInputRef.current?.click()}
             className={`min-h-[140px] border border-dashed rounded-lg p-5 flex flex-col items-center justify-center text-center cursor-pointer transition relative group ${
               isDragging
-                ? 'border-indigo-400 bg-indigo-950/30 ring-2 ring-indigo-500/50'
-                : 'border-[#2D3139] hover:border-indigo-500/70 bg-[#0A0B0E] hover:bg-[#1A1D24]/40'
+                ? 'border-cyan-400 bg-cyan-950/30 ring-2 ring-cyan-500/50'
+                : 'border-[#292D38] hover:border-cyan-500/70 bg-[#07080A] hover:bg-[#1A1D26]/40'
             }`}
           >
             <input
@@ -290,13 +290,13 @@ export const AudioInputPanel: React.FC<AudioInputPanelProps> = ({
               accept="audio/*,.mp3,.wav,.flac,.m4a,.ogg,.aac,.aiff"
               className="hidden"
             />
-            <div className="w-10 h-10 rounded-lg bg-[#1A1D24] border border-[#2D3139] flex items-center justify-center text-indigo-400 mb-2 group-hover:scale-105 transition">
+            <div className="w-10 h-10 rounded-lg bg-[#1A1D26] border border-[#292D38] flex items-center justify-center text-[#06B6D4] mb-2 group-hover:scale-105 transition shadow-sm">
               <Upload className="w-5 h-5" />
             </div>
             <p className="text-sm font-bold text-white">
-              Drop audio file here, or <span className="text-indigo-400 underline underline-offset-2">browse filesystem</span>
+              Drop audio file here, or <span className="text-cyan-400 underline underline-offset-2">browse filesystem</span>
             </p>
-            <p className="text-[10px] text-slate-500 font-mono uppercase tracking-wider mt-1">
+            <p className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider mt-1">
               Supports Lossless WAV, FLAC, AIFF, MP3, M4A, OGG (Full Sample Rate)
             </p>
           </div>
@@ -305,17 +305,17 @@ export const AudioInputPanel: React.FC<AudioInputPanelProps> = ({
         {/* Live Audio Capture & DSP Specs */}
         <div className="lg:col-span-4 flex flex-col gap-2.5">
           {/* Microphone Recording Workstation */}
-          <div className="bg-[#0A0B0E] p-3 rounded-lg border border-[#2D3139] flex flex-col justify-between flex-1">
+          <div className="bg-[#07080A] p-3 rounded-lg border border-[#292D38] flex flex-col justify-between flex-1">
             <div className="flex items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-2">
-                <div className={`w-2.5 h-2.5 rounded-full ${isRecording ? 'bg-rose-500 animate-ping' : 'bg-slate-600'}`} />
+                <div className={`w-2.5 h-2.5 rounded-full ${isRecording ? 'bg-[#DC2626] animate-ping' : 'bg-zinc-600'}`} />
                 <span className="text-xs font-bold text-white uppercase tracking-wider font-mono">
                   {isRecording ? `Recording (${recordSeconds}s)` : 'Direct Audio Capture'}
                 </span>
               </div>
 
               {isRecording && (
-                <span className="text-[10px] font-mono text-rose-400 font-bold animate-pulse">
+                <span className="text-[10px] font-mono text-red-400 font-bold animate-pulse">
                   LIVE PCM
                 </span>
               )}

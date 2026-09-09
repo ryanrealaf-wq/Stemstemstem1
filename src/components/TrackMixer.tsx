@@ -50,21 +50,21 @@ export const TrackMixer: React.FC<TrackMixerProps> = ({
   onExportAllMidi,
 }) => {
   const stems: { type: StemType; label: string; icon: string; color: string; bgGlow: string }[] = [
-    { type: 'vocals', label: 'Vocals', icon: '🎤', color: 'text-cyan-400 border-cyan-700/50 bg-cyan-950/30', bgGlow: 'hover:border-cyan-500/60' },
-    { type: 'bass', label: 'Bass', icon: '🎸', color: 'text-amber-400 border-amber-700/50 bg-amber-950/30', bgGlow: 'hover:border-amber-500/60' },
-    { type: 'drums', label: 'Drums', icon: '🥁', color: 'text-pink-400 border-pink-700/50 bg-pink-950/30', bgGlow: 'hover:border-pink-500/60' },
+    { type: 'vocals', label: 'Vocals', icon: '🎤', color: 'text-pink-400 border-pink-700/50 bg-pink-950/30', bgGlow: 'hover:border-pink-500/60' },
+    { type: 'drums', label: 'Drums', icon: '🥁', color: 'text-amber-400 border-amber-700/50 bg-amber-950/30', bgGlow: 'hover:border-amber-500/60' },
+    { type: 'bass', label: 'Bass', icon: '🎸', color: 'text-cyan-400 border-cyan-700/50 bg-cyan-950/30', bgGlow: 'hover:border-cyan-500/60' },
     { type: 'guitar', label: 'Guitar', icon: '🎸', color: 'text-emerald-400 border-emerald-700/50 bg-emerald-950/30', bgGlow: 'hover:border-emerald-500/60' },
-    { type: 'piano', label: 'Piano', icon: '🎹', color: 'text-sky-400 border-sky-700/50 bg-sky-950/30', bgGlow: 'hover:border-sky-500/60' },
-    { type: 'other', label: 'Other', icon: '🎛️', color: 'text-purple-400 border-purple-700/50 bg-purple-950/30', bgGlow: 'hover:border-purple-500/60' },
+    { type: 'piano', label: 'Piano', icon: '🎹', color: 'text-violet-400 border-violet-700/50 bg-violet-950/30', bgGlow: 'hover:border-violet-500/60' },
+    { type: 'other', label: 'Melody/Other', icon: '🎛️', color: 'text-teal-400 border-teal-700/50 bg-teal-950/30', bgGlow: 'hover:border-teal-500/60' },
   ];
 
   return (
-    <div className="bg-[#15171C] rounded-lg border border-[#2D3139] p-4 shadow-xl select-none">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 pb-2.5 border-b border-[#2D3139]">
+    <div className="bg-[#101217] rounded-lg border border-[#292D38] p-4 shadow-xl select-none">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 pb-2.5 border-b border-[#292D38]">
         <div className="flex items-center gap-2">
-          <Sliders className="w-3.5 h-3.5 text-indigo-400" />
-          <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-300">
-            HTDemucs 6-Stem Mixer & Dispatcher
+          <Sliders className="w-3.5 h-3.5 text-[#DC2626]" />
+          <h3 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-white">
+            HTDemucs Multi-Stem Mixer & Dispatcher
           </h3>
         </div>
 

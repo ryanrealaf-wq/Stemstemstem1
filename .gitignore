@@ -8,4 +8,7 @@ coverage/
 !.env.example
 .jdk21/
 .android-sdk/
-*.apk
+# Allow tracking real APK binary in public
+!public/app-debug.apk
+!public/apk/*.apk
+!android/app/stemflow.keystore
